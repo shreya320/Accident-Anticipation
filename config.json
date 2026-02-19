@@ -1,0 +1,54 @@
+{
+  "# Comment": "Configuration file for Accident Anticipation Pipeline",
+  "# Note": "Can be overridden via command-line arguments",
+  
+  "# ============ PREPROCESSING ============": null,
+  "target_fps": 10,
+  "frame_width": 640,
+  "frame_height": 480,
+  
+  "# ============ DETECTION & TRACKING ============": null,
+  "yolo_model": "yolov8m.pt",
+  "detection_confidence": 0.5,
+  "use_byte_track": true,
+  "use_cuda": true,
+  
+  "# ============ TRAJECTORY ============": null,
+  "pixels_per_meter": 1.0,
+  
+  "# ============ INTERACTION FEATURES ============": null,
+  "proximity_threshold": 300.0,
+  "ttc_threshold": 2.0,
+  
+  "# ============ STATE ENCODING ============": null,
+  "latent_dim": 32,
+  "observation_window": 20,
+  
+  "# ============ TRAJECTORY SAMPLING ============": null,
+  "num_diffusion_steps": 10,
+  "prediction_horizon": 30,
+  "num_trajectory_samples": 5,
+  
+  "# ============ RISK EVALUATION ============": null,
+  "collision_distance": 30.0,
+  "near_miss_distance": 100.0,
+  
+  "# ============ RISK AGGREGATION ============": null,
+  "aggregation_method": "mean",
+  "temporal_alpha": 0.3,
+  
+  "# ============ NOTES ============": {
+    "target_fps": "Normalize video to this FPS (lower = faster, less granular)",
+    "frame_width": "Resize frames to this width for YOLO",
+    "frame_height": "Resize frames to this height for YOLO",
+    "yolo_model": "Model size: nano(n), small(s), medium(m), large(l), xlarge(x)",
+    "detection_confidence": "Only keep detections with conf >= this (0-1)",
+    "latent_dim": "Dimension of latent motion encoding (32-128 recommended)",
+    "observation_window": "Frames of history to use (20-30 recommended)",
+    "prediction_horizon": "Frames to predict into future (20-40 recommended)",
+    "num_trajectory_samples": "Number of future samples per agent (3-10 recommended)",
+    "collision_distance": "Distance threshold for collision detection (pixels)",
+    "near_miss_distance": "Distance threshold for near-miss (pixels)",
+    "temporal_alpha": "EMA smoothing factor (0-1], lower = more smoothing"
+  }
+}
