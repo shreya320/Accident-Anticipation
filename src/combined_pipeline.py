@@ -8,11 +8,11 @@ import cv2
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 print("Using:", DEVICE)
 
-sys.path.append("/kaggle/input/datasets/shreyagupta12345/all-files-alls")
-sys.path.append("/kaggle/input/datasets/shreyagupta12345/risk-risk")
+sys.path.append(" ")
+sys.path.append(" ")
 
-VIDEO_FILE = "/kaggle/input/datasets/shreyagupta12345/video-update/zVzXEht1aME.mp4"
-MODEL_PATH = "/kaggle/input/datasets/shreyagupta12345/interaction/diffusion_interaction_model.pt"
+VIDEO_FILE = "path/to/video.mp4"
+MODEL_PATH = "path/to/diffusion_interaction_model.pt"
 
 START_SEC = 30
 END_SEC = 39

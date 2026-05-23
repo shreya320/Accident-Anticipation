@@ -8,9 +8,9 @@ import time
 from collections import defaultdict
 from sklearn.metrics import roc_auc_score, average_precision_score
 # ================= CONFIG =================
-sys.path.append("/kaggle/input/datasets/shreyagupta12345/risk-risk")
-DATA_DIR = "/kaggle/input/datasets/shreyagupta12345/eval-all-vidoes/all_vidoes"
-MODEL_PATH = "/kaggle/input/datasets/shreyagupta12345/interaction/diffusion_interaction_model.pt"
+sys.path.append("path/to/risk-risk")
+DATA_DIR = "path/to/eval-all-videos"
+MODEL_PATH = "path/to/diffusion_interaction_model.pt"
 
 FUTURE_FRAMES = 30
 OUTPUT_DIM = FUTURE_FRAMES * 2

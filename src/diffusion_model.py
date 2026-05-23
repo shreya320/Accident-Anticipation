@@ -8,8 +8,8 @@ from tqdm import tqdm
 
 # ================= CONFIG =================
 
-DATA_DIR = "/content/drive/.shortcut-targets-by-id/1Cdu5ESiLBps0D5jkXFtnoqU20zMDj_Up/CarAccidentProject/evaluation_results_b"
-SAVE_PATH = "/content/drive/MyDrive/diffusion_interaction_model.pt"
+DATA_DIR = "path/to/evaluation_results"
+SAVE_PATH = "path/to/diffusion_interaction_model.pt"
 
 FUTURE_FRAMES = 30
 OUTPUT_DIM = FUTURE_FRAMES * 2

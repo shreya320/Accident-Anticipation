@@ -8,7 +8,7 @@ import os
 import sys
 import time
 
-sys.path.append("/kaggle/input/datasets/shreyagupta12345/all-files-alls")
+sys.path.append("path/to/all-files-alls")
 
 from sklearn.metrics import roc_auc_score, average_precision_score
 
@@ -23,9 +23,9 @@ from state_encoder import StateEncoder
 
 # ================= CONFIG =================
 
-DATA_DIR = "/kaggle/input/datasets/shreyagupta12345/eval-all-vidoes/all_vidoes"
-MODEL_PATH = "/kaggle/input/datasets/shreyagupta12345/interaction/diffusion_interaction_model.pt"
-NEW_VIDEO_PATH = "/kaggle/input/datasets/shreyagupta12345/video-update/zVzXEht1aME.mp4"
+DATA_DIR = "path/to/eval-all-videos"
+MODEL_PATH = "path/to/diffusion_interaction_model.pt"
+NEW_VIDEO_PATH = "path/to/video.mp4"
 
 FUTURE_FRAMES = 30
 OUTPUT_DIM = FUTURE_FRAMES * 2

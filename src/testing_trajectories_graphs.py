@@ -5,8 +5,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-MODEL_PATH = "/kaggle/input/datasets/shreyagupta12345/interaction/diffusion_interaction_model.pt"
-DATA_DIR = "/kaggle/input/datasets/shreyagupta12345/eval-all-vidoes/all_vidoes"
+MODEL_PATH = "path/to/diffusion_interaction_model.pt"
+DATA_DIR = "path/to/eval-all-videos"
 
 FUTURE_FRAMES = 30
 OUTPUT_DIM = FUTURE_FRAMES * 2
