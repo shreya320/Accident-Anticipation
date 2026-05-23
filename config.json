@@ -11,7 +11,7 @@
   "yolo_model": "yolov8m.pt",
   "detection_confidence": 0.5,
   "use_byte_track": true,
-  "use_cuda": true,
+  "use_cuda": false,
   
   "# ============ TRAJECTORY ============": null,
   "pixels_per_meter": 1.0,

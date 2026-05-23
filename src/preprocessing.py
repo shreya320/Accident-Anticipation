@@ -147,18 +147,21 @@ class VideoPreprocessor:
 
 
 def load_video_frames(video_path: str, target_fps: int = 10, 
-                     target_width: int = 640, target_height: int = 480) -> Tuple[list, dict]:
+                     target_width: int = 640, target_height: int = 480,
+                     output_path: str = None) -> Tuple[list, dict]:
     """
-    Convenience function to load all frames from a video.
+    Load frames from video with memory-efficient batch processing.
+    Can optionally save frames to disk to avoid memory exhaustion.
     
     Args:
         video_path: Path to video file
         target_fps: Target FPS
         target_width: Target width
         target_height: Target height
+        output_path: Optional path to save frames to disk (for memory efficiency)
         
     Returns:
-        tuple: (list of frames, metadata dict)
+        tuple: (list of frames or None if saved to disk, metadata dict)
     """
     preprocessor = VideoPreprocessor(target_fps, target_width, target_height)
     if not preprocessor.open_video(video_path):
@@ -166,14 +169,44 @@ def load_video_frames(video_path: str, target_fps: int = 10,
     
     frames = []
     frame_times = []
+    batch_size = 100  # Process frames in batches to limit memory
     
-    for frame, idx, timestamp in preprocessor.get_frame_generator():
-        frames.append(frame)
-        frame_times.append(timestamp)
+    # If output_path provided, save frames in batches instead of keeping in memory
+    if output_path:
+        Path(output_path).mkdir(parents=True, exist_ok=True)
+        batch_idx = 0
+        frame_idx = 0
+        
+        for frame, idx, timestamp in preprocessor.get_frame_generator():
+            frames.append(frame)
+            frame_times.append(timestamp)
+            frame_idx += 1
+            
+            # Save batch to disk periodically
+            if len(frames) >= batch_size:
+                batch_file = Path(output_path) / f'batch_{batch_idx:06d}.npy'
+                np.save(str(batch_file), np.array(frames, dtype=np.uint8))
+                frames = []
+                batch_idx += 1
+        
+        # Save remaining frames
+        if len(frames) > 0:
+            batch_file = Path(output_path) / f'batch_{batch_idx:06d}.npy'
+            np.save(str(batch_file), np.array(frames, dtype=np.uint8))
+        
+        frames = None  # Signal that frames were saved to disk
+    else:
+        # Load into memory (for smaller videos)
+        for frame, idx, timestamp in preprocessor.get_frame_generator():
+            frames.append(frame)
+            frame_times.append(timestamp)
     
     info = preprocessor.get_info()
-    info['frame_count'] = len(frames)
+    info['frame_count'] = len(frame_times)
     info['frame_times'] = frame_times
+    if output_path:
+        info['frames_saved_to_disk'] = True
+        info['frames_output_path'] = output_path
     
     preprocessor.close_video()
     

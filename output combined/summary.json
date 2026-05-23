@@ -1,9 +1,0 @@
-{
-  "video_path": "data\\videos\\08PPPXtzN4A.mp4",
-  "timestamp": "2026-02-02T13:12:04.003433",
-  "num_tracks": 34,
-  "num_frames": 193,
-  "target_fps": 5,
-  "prediction_horizon": 30,
-  "num_samples_per_agent": 5
-}

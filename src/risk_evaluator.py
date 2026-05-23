@@ -39,30 +39,22 @@ class FutureRiskScore:
         if self.events is None:
             self.events = []
     
-    def compute_composite(self, collision_weight: float = 0.5,
-                         near_miss_weight: float = 0.3,
-                         brake_weight: float = 0.2):
-        """
-        Compute weighted composite risk.
-        
-        Args:
-            collision_weight: Weight for collision risk
-            near_miss_weight: Weight for near-miss risk
-            brake_weight: Weight for braking risk
-        """
+    def compute_composite(self, collision_weight: float = 0.85,
+                     near_miss_weight: float = 0.15):
+
         self.composite_risk = (
             collision_weight * self.collision_risk +
-            near_miss_weight * self.near_miss_risk +
-            brake_weight * self.abrupt_brake_risk
+            near_miss_weight * self.near_miss_risk
         )
+
         self.composite_risk = np.clip(self.composite_risk, 0, 1)
 
 
 class RiskEvaluator:
     """Evaluates risk for predicted future trajectories."""
     
-    def __init__(self, collision_distance: float = 30.0,
-                 near_miss_distance: float = 100.0,
+    def __init__(self, collision_distance: float = 60.0,
+                 near_miss_distance: float = 150.0,
                  ttc_threshold: float = 1.5,
                  braking_threshold: float = 3.0):
         """
@@ -212,7 +204,7 @@ class RiskEvaluator:
         
         # Compute acceleration
         for i in range(1, len(speeds)):
-            acc = (speeds[i] - speeds[i-1]) * fps
+            acc = (speeds[i] - speeds[i-1])
             accelerations[i] = acc
         
         # Find abrupt braking (negative acceleration)
